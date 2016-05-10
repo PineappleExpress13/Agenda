@@ -81,7 +81,6 @@ namespace Agenda
                 ////El resultado almacenado en aux[0] es el nombre del archivo sin extensión.
                 Agenda a1 = new Agenda(aux[0], 200);
                 agendas[pos] = a1;
-                pos++;
                 schdule2.Lista("Agenda -" + aux[0]);
                 ///Abrimos el archivo.
                 pruebas = File.ReadAllLines(openFileDialog1.FileName);
@@ -115,8 +114,6 @@ namespace Agenda
                         agendas[pos].Inserta(p1);
                         MostrarDatos();
                     }
-                    
-
                 }
                 
                 //Activamos todo
