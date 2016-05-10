@@ -29,7 +29,8 @@ namespace Agenda
         public Form1()
         {
             InitializeComponent();
-            pos = -1;
+            pos = 0;
+            nelem = 0;
         }
         /// <summary>
         /// Función que actualiza los datos de las box en función del tipo de contacto.
@@ -72,14 +73,15 @@ namespace Agenda
             int[] fecha2 = new int[3];
            if ( openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                saveFileDialog1.FileName = openFileDialog1.FileName;
                 ///Hago un split del path usando el separador '\'
                 aux = openFileDialog1.FileName.Split(char.Parse(p));
                 ///Hago un split del resultado (*.agenda) usando el separador .
                 aux = aux[aux.Length - 1].Split('.');
                 ////El resultado almacenado en aux[0] es el nombre del archivo sin extensión.
                 Agenda a1 = new Agenda(aux[0], 200);
-                pos++;
                 agendas[pos] = a1;
+                pos++;
                 schdule2.Lista("Agenda -" + aux[0]);
                 ///Abrimos el archivo.
                 pruebas = File.ReadAllLines(openFileDialog1.FileName);
@@ -98,7 +100,7 @@ namespace Agenda
                         ///Creamos la instancia 
                         Persona p1 = new Persona(aux[0], aux[1], aux[2], date);
                         agendas[pos].Inserta(p1);
-                        
+                        MostrarDatos();
                     }///Igualmente,si da lugar a 7 substrings se trata de un contacto empresarial.
                     else if (aux.Length == 7)
                     {
@@ -111,12 +113,12 @@ namespace Agenda
                         ///Creamos la instancia 
                         Empresarial p1 = new Empresarial(aux[0], aux[1], aux[2], date, aux[4], aux[5], aux[6]);
                         agendas[pos].Inserta(p1);
-                        
+                        MostrarDatos();
                     }
                     
 
                 }
-                MostrarDatos();
+                
                 //Activamos todo
                 Guardar.Enabled = true;
                 GrupoTip.Enabled = true;
@@ -222,7 +224,7 @@ namespace Agenda
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
-        {
+        {//todo corregir que cuando abro un archivo con 0 personas crashee el programa,filtro if(nelem==0) y no hacer nada.
             if (agendas[pos].Cursor < agendas[pos].Lenght - 1)
             {
                 agendas[pos].Cursor++;
@@ -335,8 +337,6 @@ namespace Agenda
                     GrupoTip.Enabled = true;
                     nuevoToolStripMenuItem.Enabled = true;
                     cambiarDeEstadoToolStripMenuItem.Enabled = true;
-                    pos++;
-                    this.Text = "Agenda - "+agendas[pos].nombre;
                     schdule.Nombre = "";
                     schdule.Contactos =0;
                     
@@ -373,6 +373,7 @@ namespace Agenda
                 Persona p1 = new Persona(nameBox.Text, surBox.Text, phoneBox.Text, dateBox.Value);
                 agendas[pos].Inserta(p1);
             }
+            
             ////Activamos todos los controles que tienen sentido despues de guardar el primer contacto.
             GrupoReg.Enabled = true;
             GrupoMos.Enabled = true;
@@ -447,7 +448,6 @@ namespace Agenda
             Agenda a1 = new Agenda();
             schdule2.Lista("Agenda - PRUEBAS" );
             this.Text = "Agenda - PRUEBAS";
-            pos++;
             agendas[pos] = a1;
             nelem++;
             ////Creamos los contactos de prueba.
@@ -529,6 +529,70 @@ namespace Agenda
 
             resumenBox.AppendText("================\n\nTotal entradas almacenadas" + agendas[pos].Nelem + "\nEspacio libre: " + agendas[pos].Espacio + " entradas");
             tabControl1.SelectTab(1);
+        }
+
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                ///Genero el array con las lineas ha introducir en el documento
+                string[] aux = new string[agendas[pos].Nelem];
+                for (int i = 0; i < agendas[pos].Nelem; i++)
+                {
+                    agendas[pos].Cursor = i;
+                    aux[i] = agendas[pos].Archivo();
+                }
+                File.WriteAllLines(saveFileDialog1.FileName, aux);
+            }
+        }
+
+        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.FileName == ".agenda")
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    
+                    if (nelem==0)
+                    {
+                     MessageBox.Show("Cree una agenda antes de guardar.");
+                        saveFileDialog1.FileName = ".agenda";
+                        
+                    }
+                    else if(nelem>0 && agendas[pos].Nelem == 0)
+                    {
+                        File.Create(saveFileDialog1.FileName);
+                    }
+                    else if (agendas[pos].Nelem>0)
+                    {
+                        ///Genero el array con las lineas ha introducir en el documento
+                        string[] aux = new string[agendas[pos].Nelem];
+                        for (int i = 0; i < agendas[pos].Nelem; i++)
+                        {
+                            agendas[pos].Cursor = i;
+                            aux[i] = agendas[pos].Archivo();
+                        }
+                        File.WriteAllLines(saveFileDialog1.FileName, aux);
+                    }
+                }
+            }
+            else
+            {
+                if (agendas[pos].Nelem == 0)
+                {
+                    ///Control para que no intente generar un documento vacio y crashee el programa.
+                }
+                else
+                {
+                    string[] aux = new string[agendas[pos].Nelem];
+                    for (int i = 0; i < agendas[pos].Nelem; i++)
+                    {
+                        agendas[pos].Cursor = i;
+                        aux[i] = agendas[pos].Archivo();
+                    }
+                    File.WriteAllLines(saveFileDialog1.FileName, aux);
+                }
+            }
         }
     }
 }

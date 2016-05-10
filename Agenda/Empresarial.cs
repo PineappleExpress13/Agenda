@@ -72,6 +72,15 @@ namespace Agenda
 
         }
         /// <summary>
+        /// Devuelve un resumen del objeto para guardarlo en un archivo.
+        /// </summary>
+        /// <returns></returns>
+        public  string Resumen()
+        {
+            return nombre + "$" + apellidos + "$" + tlfno + "$" + fnac.ToShortDateString() +"$" + empresa + "$" + cargo + "$" + phone;
+
+        }
+        /// <summary>
         /// Devuelve el nombre de la empresa del contacto.
         /// </summary>
         public string Empresa

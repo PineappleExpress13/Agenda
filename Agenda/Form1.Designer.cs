@@ -44,6 +44,8 @@
             this.ultimoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.personalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.empresarialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mostrarResumenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,6 +55,7 @@
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Edicion = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
             this.Guardar = new System.Windows.Forms.Button();
             this.GrupoTip = new System.Windows.Forms.GroupBox();
             this.Nuevo = new System.Windows.Forms.Button();
@@ -87,9 +90,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.Resumen = new System.Windows.Forms.TabPage();
             this.resumenBox = new System.Windows.Forms.RichTextBox();
-            this.personalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.empresarialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button5 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
@@ -153,12 +153,14 @@
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
             this.guardarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
             // guardarComoToolStripMenuItem
             // 
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
             this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.guardarComoToolStripMenuItem.Text = "Guardar Como..";
+            this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -237,6 +239,20 @@
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
+            // personalToolStripMenuItem
+            // 
+            this.personalToolStripMenuItem.Name = "personalToolStripMenuItem";
+            this.personalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.personalToolStripMenuItem.Text = "Personal";
+            this.personalToolStripMenuItem.Click += new System.EventHandler(this.personalToolStripMenuItem_Click);
+            // 
+            // empresarialToolStripMenuItem
+            // 
+            this.empresarialToolStripMenuItem.Name = "empresarialToolStripMenuItem";
+            this.empresarialToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.empresarialToolStripMenuItem.Text = "Empresarial";
+            this.empresarialToolStripMenuItem.Click += new System.EventHandler(this.empresarialToolStripMenuItem_Click);
+            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
@@ -312,6 +328,17 @@
             this.Edicion.TabIndex = 0;
             this.Edicion.Text = "Edición";
             this.Edicion.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Enabled = false;
+            this.button5.Location = new System.Drawing.Point(105, 338);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(90, 23);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Modificar";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Guardar
             // 
@@ -651,35 +678,15 @@
             this.resumenBox.TabIndex = 0;
             this.resumenBox.Text = "";
             // 
-            // personalToolStripMenuItem
-            // 
-            this.personalToolStripMenuItem.Name = "personalToolStripMenuItem";
-            this.personalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.personalToolStripMenuItem.Text = "Personal";
-            this.personalToolStripMenuItem.Click += new System.EventHandler(this.personalToolStripMenuItem_Click);
-            // 
-            // empresarialToolStripMenuItem
-            // 
-            this.empresarialToolStripMenuItem.Name = "empresarialToolStripMenuItem";
-            this.empresarialToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.empresarialToolStripMenuItem.Text = "Empresarial";
-            this.empresarialToolStripMenuItem.Click += new System.EventHandler(this.empresarialToolStripMenuItem_Click);
-            // 
-            // button5
-            // 
-            this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(105, 338);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(90, 23);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Modificar";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "agenda.agenda";
+            this.openFileDialog1.FileName = ".agenda";
             this.openFileDialog1.Filter = "Agenda|*.agenda";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.FileName = ".agenda";
+            this.saveFileDialog1.Filter = "Agenda|*.agenda";
             // 
             // Form1
             // 

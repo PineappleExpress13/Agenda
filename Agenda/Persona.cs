@@ -132,5 +132,14 @@ namespace Agenda
             return nombre+" "+ apellidos + "\t" + tlfno + "\t" + fnac.ToShortDateString();
 
         }
+        /// <summary>
+        /// Devuelve un resumen del objeto para guardarlo en un archivo.
+        /// </summary>
+        /// <returns></returns>
+        public string Resumen()
+        {
+            return nombre + "$" + apellidos + "$" + tlfno + "$" + fnac.ToShortDateString();
+
+        }
     }
 }

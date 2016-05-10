@@ -262,6 +262,19 @@ namespace Agenda
                 return e1.ToString();
             }
         }
+
+        public string Archivo()
+        {
+            if (Contactos[cursor].Empr == false)
+            {
+                return Contactos[cursor].Resumen();
+            }
+            else
+            {
+                Empresarial e1 = (Empresarial)Contactos[cursor];
+                return e1.Resumen();
+            }
+        }
         /// <summary>
         /// Devuelve el nombre de la agenda.
         /// </summary>
